@@ -1,13 +1,20 @@
 package com.davidshuochou.dropwizardexample;
 
+import com.davidshuochou.dropwizardexample.dao.MonsterDao;
+import com.davidshuochou.dropwizardexample.rest.MonsterResources;
+
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
 public class ExampleApplication extends Application<ExampleConfiguration> {
 
+    private static ExampleApplication instance;
+    private MonsterDao monsterDao;
+    
     public static void main(String args[]) throws Exception {
-        new ExampleApplication().run(args);
+        instance = new ExampleApplication();
+        instance.run(args);
     }
 
     @Override
@@ -19,8 +26,13 @@ public class ExampleApplication extends Application<ExampleConfiguration> {
     @Override
     public void run(ExampleConfiguration config, Environment env)
             throws Exception {
-        // TODO Auto-generated method stub
-        
+        monsterDao = new MonsterDao();
+        env.jersey().register(MonsterResources.class);
+        env.jersey().setUrlPattern("/service/*");
+    }
+
+    public static MonsterDao getMonsterDao() {
+        return instance.monsterDao;
     }
 
 }

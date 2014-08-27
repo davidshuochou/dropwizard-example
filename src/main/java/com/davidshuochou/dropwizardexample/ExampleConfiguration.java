@@ -9,11 +9,11 @@ import io.dropwizard.Configuration;
 public class ExampleConfiguration extends Configuration {
     
     @NotEmpty
-    private String userName;
+    private Integer maxMonsterLimbCount;
 
     @JsonProperty
-    public String getUserName() {
-        return userName;
+    public Integer getUserName() {
+        return maxMonsterLimbCount;
     }
 
 }
